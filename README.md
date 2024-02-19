@@ -1,3 +1,8 @@
 # Northcoders News API
 
-For instructions, please head over to [L2C NC News](https://l2c.northcoders.com/courses/be/nc-news).
+1. 
+.env.* has been added and gitignored.
+To connect to file locally, add two .env. files one .env.test and one .env.development. Inside them should look like:
+PGDATABASE=database_name_here
+see /db/setup.sql for database names
+
