@@ -4,4 +4,7 @@
 .env.* has been added and gitignored.
 To connect to file locally, add two .env. files one .env.test and one .env.development. Inside them should look like:
 PGDATABASE=database_name_here
+
 see /db/setup.sql for database names.
+
+
