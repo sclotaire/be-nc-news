@@ -8,3 +8,4 @@ PGDATABASE=database_name_here
 see /db/setup.sql for database names.
 
 
+2. endpoint /api/topics can return array of topics successfully
