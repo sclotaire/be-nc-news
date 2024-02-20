@@ -13,3 +13,7 @@ see /db/setup.sql for database names.
 3. able to access endpoints.json file with info on code so far. checked that it works when json file is changed. works, so is dynamic. yay!
 
 4. able to access article by id. errors 404 and 400 handled. updated endpoints.json. all tests passing and up to date with endpoints.json.
+
+5. able to access all articles with body property removed, a comment_count added and in descending order of created_at key.
+
+next: need to seperate error handling out of app file into errorhandling file.
