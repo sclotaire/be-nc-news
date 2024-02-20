@@ -32,6 +32,7 @@ describe('GET /api', () => {
             .expect(200)
             .then((response) => {
                 const body = response.body
+                console.log(body)
                 expect(body.endpointsData).toEqual(endpointsData)
             })
     })
