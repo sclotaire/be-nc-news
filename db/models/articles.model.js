@@ -18,6 +18,20 @@ function selectAllArticles(){
     })
 } 
 
+function updateArticle(article_id, update){
+    return db.query('SELECT * FROM articles WHERE article_id=$1', [article_id])
+    .then((result) => {
+        if (result.rows.length === 0){
+             return Promise.reject({status: 404, msg: 'article does not exist'})
+        }
+        if (typeof update !== 'number'){
+            next(err)
+        }
+        else if (typeof update === 'number'){let updatedArticle = result.rows[0]
+        updatedArticle.votes += update
+        return updatedArticle}
+    })
+}
 
-module.exports = {selectArticlesById, selectAllArticles}
+module.exports = {selectArticlesById, selectAllArticles, updateArticle}
 

@@ -79,6 +79,19 @@
     "description": "takes an article_id and object with username and comment, adds comment to comments for that article_id and serves comment as a string",
     "queries": ["author_id", "author", "body"],
     "exampleResponse": "Take life as it comes"
+  },
+  "PATCH /api/articles/:article_id": {
+    "description": "takes an update (for votes) and updates the votes property for the correct article_id",
+    "exampleResponse": {
+      "article_id": 1,
+      "title": "Living in the shadow of a great man",
+      "topic": "mitch",
+      "author": "butter_bridge",
+      "body": "I find this existence challenging",
+      "created_at": "2020-07-09T19:11:00.000Z",
+      "votes": 102,
+      "article_img_url": "https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700"
+    }
   }
 }
 
