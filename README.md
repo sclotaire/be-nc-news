@@ -19,3 +19,5 @@ see /db/setup.sql for database names.
 6. can access all comments of an article when user requests specific comments using article_id.
 Also refactored error handling out of app file into errorhandling file.
 Also seperated get api into its own controller file for extra clarity
+
+7. valid user can add comment using article id

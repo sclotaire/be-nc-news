@@ -1,4 +1,4 @@
-const selectAllComments = require('../models/comments.model')
+const { selectAllComments, insertComment } = require('../models/comments.model')
 
 function getAllComments(req, res, next){
     const { article_id } = req.params
@@ -8,4 +8,13 @@ function getAllComments(req, res, next){
     .catch(next)
 }
 
-module.exports = getAllComments
+function postComment(req, res, next){
+    const newComment = req.body
+    const { article_id } = req.params
+    insertComment(article_id, newComment).then((comment) => {
+        res.status(201).send({comment})
+    })
+    .catch(next)
+}
+
+module.exports = {getAllComments, postComment }
