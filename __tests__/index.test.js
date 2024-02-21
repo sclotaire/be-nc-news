@@ -146,3 +146,71 @@ describe('/api/articles/:article_id/comments', () => {
             })
     })
 })
+
+describe('POST /api/articles/:article_id/comments', () => {
+    test('POST 201: adds a comment for an article', () => {
+        const newComment = {
+            author: 'butter_bridge',
+            body: 'Take life as it comes'
+        }
+        return request(app)
+        .post('/api/articles/1/comments')
+        .send(newComment)
+        .expect(201)
+        .then((response) => {
+            expect(response.body.comment).toBe('Take life as it comes')
+        })
+    })
+    test('ERROR 404: send an appropriate status and error message when given a valid but non-existent article_id', () => {
+        const newComment = {
+            author: 'butter_bridge',
+            body: 'hello error comment here'
+        }
+        return request(app)
+            .post('/api/articles/90/comments')
+            .send(newComment)
+            .expect(404)
+            .then((response) => {
+                expect(response.body.msg).toBe('article does not exist')
+            })
+    })
+    test('ERROR 400: sends appropriate status and error message when given invalid article_id', () => {
+        const newComment = {
+            author: 'butter_bridge',
+            body: 'hello error comment here'
+        }
+        return request(app)
+            .post('/api/articles/not_a_valid_id/comments')
+            .send(newComment)
+            .expect(400)
+            .then((response) => {
+                expect(response.body.msg).toBe('Bad request')
+            })
+    })
+    test('ERROR 404: sends appropriate status and error message with given a non-existent username', () => {
+        const newComment = {
+            author: 'i_dont_exist',
+            body: 'hello error comment here'
+        }
+        return request(app)
+            .post('/api/articles/1/comments')
+            .send(newComment)
+            .expect(404)
+            .then((response) => {
+                expect(response.body.msg).toBe('user does not exist')
+            })
+    })
+    test('ERROR 400: sends appropriate status and error message when an empty message body is sent', () => {
+        const newComment = {
+            author: 'butter_bridge',
+            body: ''
+        }
+        return request(app)
+            .post('/api/articles/1/comments')
+            .send(newComment)
+            .expect(400)
+            .then((response) => {
+                expect(response.body.msg).toBe('Bad request')
+            })
+    })
+})

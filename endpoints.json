@@ -74,6 +74,11 @@
           "created_at": "2020-10-31T01:03:00.000Z"
         }
       ]
+  },
+  "POST /api/articles/:article_id/comments": {
+    "description": "takes an article_id and object with username and comment, adds comment to comments for that article_id and serves comment as a string",
+    "queries": ["author_id", "author", "body"],
+    "exampleResponse": "Take life as it comes"
   }
 }
 
