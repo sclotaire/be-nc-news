@@ -16,4 +16,6 @@ see /db/setup.sql for database names.
 
 5. able to access all articles with body property removed, a comment_count added and in descending order of created_at key.
 
-next: need to seperate error handling out of app file into errorhandling file.
+6. can access all comments of an article when user requests specific comments using article_id.
+Also refactored error handling out of app file into errorhandling file.
+Also seperated get api into its own controller file for extra clarity

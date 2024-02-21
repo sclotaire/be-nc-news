@@ -16,9 +16,6 @@ function selectAllArticles(){
     .then((result) => {
         return result.rows
     })
-    .catch((err) => {
-        console.log(err)
-    })
 } 
 
 

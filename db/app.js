@@ -1,7 +1,10 @@
 const express = require('express');
 const app = express();
-const { getTopics, getApi } = require('./controllers/topicsAndApi.controller')
+const getTopics = require('./controllers/topics.controller')
+const getApi = require('./controllers/api.controller')
 const {getArticlesById, getAllArticles} = require('./controllers/articles.controller')
+const getAllComments = require('./controllers/comments.controller')
+const { handleCustomErrors, handlePsqlErrors, handleServerErrors } = require('./errorhandling')
 
 app.use(express.json());
 
@@ -13,17 +16,13 @@ app.get('/api/articles/:article_id', getArticlesById);
 
 app.get('/api/articles', getAllArticles)
 
-// error handling middlesware starts here:
+app.get('/api/articles/:article_id/comments', getAllComments)
 
-app.use((err, req, res, next) => {
-    if (err.status && err.msg){
-        res.status(err.status).send({msg: err.msg})
-    }
-    next(err)
-})
+app.use(handleCustomErrors)
 
-app.use((err, req, res, next) => {
-    res.status(400).send({msg: 'Bad request'})
-})
+app.use(handlePsqlErrors)
+
+app.use(handleServerErrors)
+
 
 module.exports = app;
