@@ -22,4 +22,8 @@ Also seperated get api into its own controller file for extra clarity
 
 7. valid user can add comment using article id
 
-8. can delete comment by comment_id. also refactored errors in response to tutor comments
+8. can add increment and decrement to votes
+
+9. can delete comment by comment_id. also refactored errors in response to tutor comments
+
+10. can get all users
