@@ -5,7 +5,7 @@ function selectAllComments(article_id) {
     return db.query('SELECT * FROM comments WHERE article_id=$1 ORDER BY created_at DESC', [article_id])
         .then((result) => {
             if (result.rows.length === 0) {
-                return Promise.reject({ status: 404, msg: 'article does not exist' })
+                return Promise.reject({ status: 404, msg: 'Not found' })
             }
             return result.rows
         })
@@ -20,14 +20,21 @@ function insertComment(article_id, { author, body }) {
             return result.rows[0].body
         })
         .catch((err) => {
-            if (err.detail === 'Key (article_id)=(90) is not present in table "articles".') {
-                return Promise.reject({ status: 404, msg: 'article does not exist' })
-            }
-            else if (err.detail === 'Key (author)=(i_dont_exist) is not present in table "users".') {
-                return Promise.reject({ status: 404, msg: 'user does not exist' })
+            if (err.code === '23503') {
+                return Promise.reject({ status: 404, msg: 'Not found' })
             }
             else next(err)
         })
 }
 
-module.exports = { selectAllComments, insertComment }
+function removeComment(comment_id){
+    return db.query('DELETE FROM comments WHERE comment_id = $1', [comment_id])
+    .then((result) => {
+        if (result.rowCount === 0){
+            return Promise.reject({ status: 404, msg: 'Not found'})
+        }
+        return result.rows[0]
+    })
+}
+
+module.exports = { selectAllComments, insertComment, removeComment }

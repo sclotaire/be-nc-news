@@ -134,7 +134,7 @@ describe('/api/articles/:article_id/comments', () => {
             .get('/api/articles/90/comments')
             .expect(404)
             .then((response) => {
-                expect(response.body.msg).toBe('article does not exist')
+                expect(response.body.msg).toBe('Not found')
             })
     })
     test('ERROR 400: sends appropraite status and error message when given an invalid article_id', () => {
@@ -171,7 +171,7 @@ describe('POST /api/articles/:article_id/comments', () => {
             .send(newComment)
             .expect(404)
             .then((response) => {
-                expect(response.body.msg).toBe('article does not exist')
+                expect(response.body.msg).toBe('Not found')
             })
     })
     test('ERROR 400: sends appropriate status and error message when given invalid article_id', () => {
@@ -197,13 +197,25 @@ describe('POST /api/articles/:article_id/comments', () => {
             .send(newComment)
             .expect(404)
             .then((response) => {
-                expect(response.body.msg).toBe('user does not exist')
+                expect(response.body.msg).toBe('Not found')
             })
     })
     test('ERROR 400: sends appropriate status and error message when an empty message body is sent', () => {
         const newComment = {
             author: 'butter_bridge',
             body: ''
+        }
+        return request(app)
+            .post('/api/articles/1/comments')
+            .send(newComment)
+            .expect(400)
+            .then((response) => {
+                expect(response.body.msg).toBe('Bad request')
+            })
+    })
+    test('ERROR 400: sends appropriate status and error message when a property is missing', () => {
+        const newComment = {
+            author: 'butter_bridge'
         }
         return request(app)
             .post('/api/articles/1/comments')
@@ -301,5 +313,31 @@ describe('PATCH /api/articles/:article_id', () => {
         .then((response) => {
             expect(response.body.msg).toBe('Bad request')
         })
+    })
+})
+
+describe('DELETE /api/comments/:comment_id', () => {
+    test('DELETE 200: deletes comment by comment_id', () => {
+        return request(app)
+        .delete('/api/comments/1')
+        .expect(204)
+    })
+    test('ERROR 404: send an appropriate status and error message when given a valid but non-existent article_id', () => {
+        const update = { inc_votes : 2 }
+        return request(app)
+        .delete('/api/comments/90')
+        .expect(404)
+            .then((response) => {
+                expect(response.body.msg).toBe('Not found')
+            })
+    })
+    test('ERROR 400: sends appropriate status and error message when given invalid article_id', () => {
+        const update = { inc_votes : 2 }
+        return request(app)
+        .delete('/api/comments/not_a_valid_id')
+        .expect(400)
+            .then((response) => {
+                expect(response.body.msg).toBe('Bad request')
+            })
     })
 })
