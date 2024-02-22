@@ -98,6 +98,17 @@
     "description": "deletes comment by comment_id",
     "queries":["comment_id"],
     "exampleResponse": "status 204. no content"
+  },
+  "GET /api/users": {
+    "description": "responds with array of objects of all users",
+    "queries":["users"],
+    "exampleResponse": [
+      {
+        "username": "butter_bridge",
+        "name": "jonny",
+        "avatar_url": "https://www.healthytherapies.com/wp-content/uploads/2016/06/Lime3.jpg"
+      }
+    ]
   }
 }
 
