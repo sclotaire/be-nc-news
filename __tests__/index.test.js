@@ -341,3 +341,22 @@ describe('DELETE /api/comments/:comment_id', () => {
             })
     })
 })
+
+describe('GET /api/users', () => {
+    test('GET 200: respond with an array of objects with correct properties', () => {
+        return request(app)
+        .get('/api/users')
+        .expect(200)
+        .then((response) => {
+            const body = response.body.users
+            expect(body.length).toBe(4)
+            body.forEach((user) => {
+                expect(typeof user).toBe('object')
+                expect(typeof user.username).toBe('string')
+                expect(typeof user.name).toBe('string')
+                expect(typeof user.avatar_url).toBe('string')
+            })
+        })
+    })
+
+})
