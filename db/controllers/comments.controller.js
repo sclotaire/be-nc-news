@@ -1,4 +1,4 @@
-const { selectAllComments, insertComment } = require('../models/comments.model')
+const { selectAllComments, insertComment, removeComment } = require('../models/comments.model')
 
 function getAllComments(req, res, next){
     const { article_id } = req.params
@@ -17,4 +17,12 @@ function postComment(req, res, next){
     .catch(next)
 }
 
-module.exports = {getAllComments, postComment }
+function deleteComment(req, res, next){
+    const {comment_id} = req.params
+    removeComment(comment_id).then(() => {
+        res.status(204).send()
+    })
+    .catch(next)
+}
+
+module.exports = {getAllComments, postComment , deleteComment}

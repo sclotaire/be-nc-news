@@ -21,3 +21,5 @@ Also refactored error handling out of app file into errorhandling file.
 Also seperated get api into its own controller file for extra clarity
 
 7. valid user can add comment using article id
+
+8. can delete comment by comment_id. also refactored errors in response to tutor comments
