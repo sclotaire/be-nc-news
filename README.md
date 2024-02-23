@@ -27,3 +27,5 @@ Also seperated get api into its own controller file for extra clarity
 9. can delete comment by comment_id. also refactored errors in response to tutor comments
 
 10. can get all users
+
+11. users can make query to find articles of specific topics

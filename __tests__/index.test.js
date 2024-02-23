@@ -61,7 +61,7 @@ describe('/api/articles/:article_id', () => {
             .get('/api/articles/90')
             .expect(404)
             .then((response) => {
-                expect(response.body.msg).toBe('article does not exist')
+                expect(response.body.msg).toBe('Not found')
             })
     })
     test('GET 400: sends appropraite status and error message when given an invalid article_id', () => {
@@ -271,7 +271,7 @@ describe('PATCH /api/articles/:article_id', () => {
         .send(update)
         .expect(404)
             .then((response) => {
-                expect(response.body.msg).toBe('article does not exist')
+                expect(response.body.msg).toBe('Not found')
             })
     })
     test('ERROR 400: sends appropriate status and error message when given invalid article_id', () => {
@@ -359,4 +359,37 @@ describe('GET /api/users', () => {
         })
     })
 
+})
+
+describe('GET topic query /api/articles', () => {
+    test('takes a topic query and responds with all articles on that topic', () => {
+        return request(app)
+        .get('/api/articles')
+        .query({topic: 'cats'})
+        .expect(200)
+        .then((response) => {
+            const allArticles = response.body.allArticles
+            allArticles.forEach((article) => {
+                expect(article.topic).toBe('cats')
+            })
+        })
+    })
+    test('ERROR 404: send an appropriate status and error message when given an existent topic that has no articles', () => {
+        return request(app)
+        .get('/api/articles')
+        .query({topic: 'paper'})
+        .expect(404)
+            .then((response) => {
+                expect(response.body.msg).toBe('Not found')
+            })
+    })
+    test('ERROR 400: send an appropriate status and error message when given a non-existent topic', () => {
+        return request(app)
+        .get('/api/articles')
+        .query({topic: 'beaches and mangoes'})
+        .expect(400)
+            .then((response) => {
+                expect(response.body.msg).toBe('Bad request')
+            })
+    })
 })
