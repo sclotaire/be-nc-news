@@ -9,7 +9,8 @@ function getArticlesById(req, res, next){
 };
 
 function getAllArticles(req, res, next){
-    selectAllArticles().then((allArticles) => {
+    const { topic } = req.query
+    selectAllArticles(topic).then((allArticles) => {
         res.status(200).send({allArticles})
     })
     .catch(next)

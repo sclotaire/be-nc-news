@@ -9,4 +9,6 @@ function getTopics(req, res, next){
     })
 }
 
-module.exports = getTopics
+
+
+module.exports = { getTopics }

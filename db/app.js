@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const getTopics = require('./controllers/topics.controller')
+const {getTopics, getArticlesByTopic} = require('./controllers/topics.controller')
 const getApi = require('./controllers/api.controller')
 const {getArticlesById, getAllArticles, patchArticle} = require('./controllers/articles.controller')
 const {getAllComments, postComment, deleteComment} = require('./controllers/comments.controller')
