@@ -29,3 +29,5 @@ Also seperated get api into its own controller file for extra clarity
 10. can get all users
 
 11. users can make query to find articles of specific topics
+
+12. query in articles_id also now gives a comment count of that article. added this test on line 59 as is relevant to that path an tests.

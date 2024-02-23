@@ -56,6 +56,15 @@ describe('/api/articles/:article_id', () => {
                 expect(body.article_img_url).toBe('https://images.pexels.com/photos/158651/news-newsletter-newspaper-information-158651.jpeg?w=700&h=700')
             })
     })
+        test('GET 200: takes an article_id and responds with the correct article and comment_count', () => {
+            return request(app)
+            .get('/api/articles/5')
+            .expect(200)
+            .then((response) => {
+                const article = response.body.article
+                expect(article.comment_count).toBe(2)
+            })
+        })
     test('GET 404: send an appropriate status and error message when given a valid but non-existent article_id', () => {
         return request(app)
             .get('/api/articles/90')
@@ -393,3 +402,4 @@ describe('GET topic query /api/articles', () => {
             })
     })
 })
+
