@@ -1,4 +1,3 @@
-const { response } = require('../app')
 const db = require('../connection')
 
 function selectAllComments(article_id) {
