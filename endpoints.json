@@ -17,7 +17,7 @@
   "GET /api/articles/:article_id": {
     "description": "responds with an object of specific id",
     "queries": [
-      "author_id"
+      "article_id"
     ],
     "exampleResponse": {
       "article": {
