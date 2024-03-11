@@ -4,8 +4,6 @@ const db = require('../db/connection')
 const seed = require('../db/seeds/seed')
 const testData = require('../db/data/test-data/index')
 const endpointsData = require('../endpoints.json')
-//const jestSorted = require('jest-sorted')
-//const developmentData = require('../db/data/development-data/index')
 
 beforeEach(() => seed(testData))
 afterAll(() => db.end())
