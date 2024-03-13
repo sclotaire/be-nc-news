@@ -152,6 +152,14 @@ describe('/api/articles/:article_id/comments', () => {
                 expect(response.body.msg).toBe('Bad request')
             })
     })
+    test('200: should return empty array when article exists and has no comments', () => {
+        return request(app)
+        .get('/api/articles/13/comments')
+        .expect(200)
+        .then((response) => {
+            expect(response.body.comments.length).toBe(0)
+        })
+    });
 })
 
 describe('POST /api/articles/:article_id/comments', () => {
