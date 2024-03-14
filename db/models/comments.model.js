@@ -10,7 +10,7 @@ function selectAllComments(article_id) {
     })
 }
 
-function insertComment(article_id, { author, body }) {
+function insertComment(article_id, { author, body }) { 
     return db.query('INSERT INTO comments (article_id, author, body) VALUES ($1, $2, $3) RETURNING *', [article_id, author, body])
         .then((result) => {
             if (result.rows[0].body.length === 0){
