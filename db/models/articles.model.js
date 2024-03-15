@@ -44,20 +44,15 @@ else if (!topic) {
 }
 
 function updateArticle(article_id, update) {
-    return db.query('SELECT * FROM articles WHERE article_id=$1', [article_id])
+    return db.query('UPDATE articles SET votes=votes+$1 WHERE article_id=$2 RETURNING *', [update, article_id])
         .then((result) => {
             if (result.rows.length === 0) {
                 return Promise.reject({ status: 404, msg: 'Not found' })
             }
-            if (typeof update !== 'number') {
-                next(err)
-            }
-            else if (typeof update === 'number') {
-                let updatedArticle = result.rows[0]
-                updatedArticle.votes += update
-                return updatedArticle
-            }
+                return result.rows[0]
+            
         })
+
 }
 
 module.exports = { selectArticlesById, selectAllArticles, updateArticle }
